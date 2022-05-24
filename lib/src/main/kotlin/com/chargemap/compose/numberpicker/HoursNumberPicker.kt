@@ -46,6 +46,8 @@ fun HoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    hoursScrollListener: ((value: Int) -> Unit)? = null,
+    minutesScrollListener: ((value: Int) -> Unit)? = null,
 ) {
     when (value) {
         is FullHours ->
@@ -60,6 +62,8 @@ fun HoursNumberPicker(
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
+                hoursScrollListener = hoursScrollListener,
+                minutesScrollListener = minutesScrollListener
             )
         is AMPMHours ->
             AMPMHoursNumberPicker(
@@ -73,6 +77,8 @@ fun HoursNumberPicker(
                 onValueChange = onValueChange,
                 dividersColor = dividersColor,
                 textStyle = textStyle,
+                hoursScrollListener = hoursScrollListener,
+                minutesScrollListener = minutesScrollListener
             )
     }
 }
@@ -89,6 +95,8 @@ fun FullHoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    hoursScrollListener: ((value: Int) -> Unit)? = null,
+    minutesScrollListener: ((value: Int) -> Unit)? = null,
 ) {
     Row(
         modifier = modifier,
@@ -105,7 +113,8 @@ fun FullHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = hoursRange
+            range = hoursRange,
+            onScrollListener = hoursScrollListener
         )
 
         hoursDivider?.invoke()
@@ -121,7 +130,8 @@ fun FullHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = minutesRange
+            range = minutesRange,
+            onScrollListener = minutesScrollListener
         )
 
         minutesDivider?.invoke()
@@ -140,6 +150,8 @@ fun AMPMHoursNumberPicker(
     onValueChange: (Hours) -> Unit,
     dividersColor: Color = MaterialTheme.colors.primary,
     textStyle: TextStyle = LocalTextStyle.current,
+    hoursScrollListener: ((value: Int) -> Unit)? = null,
+    minutesScrollListener: ((value: Int) -> Unit)? = null,
 ) {
     Row(
         modifier = modifier,
@@ -156,7 +168,8 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = hoursRange
+            range = hoursRange,
+            onScrollListener = hoursScrollListener
         )
 
         hoursDivider?.invoke()
@@ -172,7 +185,8 @@ fun AMPMHoursNumberPicker(
             },
             dividersColor = dividersColor,
             textStyle = textStyle,
-            range = minutesRange
+            range = minutesRange,
+            onScrollListener = minutesScrollListener
         )
 
         minutesDivider?.invoke()

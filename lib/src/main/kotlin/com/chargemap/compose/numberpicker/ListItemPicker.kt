@@ -46,13 +46,13 @@ fun <T> ListItemPicker(
     dividersColor: Color = MaterialTheme.colors.primary,
     list: List<T>,
     textStyle: TextStyle = LocalTextStyle.current,
+    onScrollListener: ((value: T) -> Unit)? = null,
 ) {
     val minimumAlpha = 0.3f
     val verticalMargin = 8.dp
     val numbersColumnHeight = 80.dp
     val halfNumbersColumnHeight = numbersColumnHeight / 2
     val halfNumbersColumnHeightPx = with(LocalDensity.current) { halfNumbersColumnHeight.toPx() }
-
     val coroutineScope = rememberCoroutineScope()
 
     val animatedOffset = remember { Animatable(0f) }
@@ -183,6 +183,12 @@ fun <T> ListItemPicker(
                 // Record the y co-ord placed up to
                 yPosition += placeable.height
             }
+        }
+    }
+
+    LaunchedEffect(key1 = indexOfElement) {
+        if (indexOfElement < list.count() - 1) {
+            onScrollListener?.invoke(list.elementAt(indexOfElement))
         }
     }
 }
